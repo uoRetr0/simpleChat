@@ -1,3 +1,4 @@
+package edu.seg2105.edu.server.backend;
 // This file contains material supporting section 3.7 of the textbook:
 // "Object Oriented Software Engineering" and is issued under the open-source
 // license found at www.lloseng.com 
@@ -13,7 +14,6 @@ import ocsf.server.*;
  * @author Dr Robert Lagani&egrave;re
  * @author Fran&ccedil;ois B&eacute;langer
  * @author Paul Holden
- * @version July 2000
  */
 public class EchoServer extends AbstractServer 
 {
@@ -71,6 +71,7 @@ public class EchoServer extends AbstractServer
     System.out.println
       ("Server has stopped listening for connections.");
   }
+  
   
   //Class methods ***************************************************
   

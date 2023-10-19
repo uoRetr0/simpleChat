@@ -1,3 +1,4 @@
+package edu.seg2105.client.ui;
 // This file contains material supporting section 3.7 of the textbook:
 // "Object Oriented Software Engineering" and is issued under the open-source
 // license found at www.lloseng.com 
@@ -5,8 +6,8 @@
 import java.io.*;
 import java.util.Scanner;
 
-import client.*;
-import common.*;
+import edu.seg2105.client.backend.ChatClient;
+import edu.seg2105.client.common.*;
 
 /**
  * This class constructs the UI for a chat client.  It implements the
@@ -16,7 +17,6 @@ import common.*;
  * @author Fran&ccedil;ois B&eacute;langer
  * @author Dr Timothy C. Lethbridge  
  * @author Dr Robert Lagani&egrave;re
- * @version September 2020
  */
 public class ClientConsole implements ChatIF 
 {

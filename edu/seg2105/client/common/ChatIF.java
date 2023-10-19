@@ -2,8 +2,7 @@
 // "Object Oriented Software Engineering" and is issued under the open-source
 // license found at www.lloseng.com 
 
-
-package common;
+package edu.seg2105.client.common;
 
 /**
  * This interface implements the abstract method used to display
@@ -11,7 +10,6 @@ package common;
  *
  * @author Dr Robert Lagani&egrave;re
  * @author Dr Timothy C. Lethbridge
- * @version July 2000
  */
 public interface ChatIF 
 {

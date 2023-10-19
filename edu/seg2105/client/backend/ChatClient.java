@@ -2,11 +2,13 @@
 // "Object Oriented Software Engineering" and is issued under the open-source
 // license found at www.lloseng.com 
 
-package client;
+package edu.seg2105.client.backend;
 
 import ocsf.client.*;
-import common.*;
+
 import java.io.*;
+
+import edu.seg2105.client.common.*;
 
 /**
  * This class overrides some of the methods defined in the abstract
@@ -15,7 +17,6 @@ import java.io.*;
  * @author Dr Timothy C. Lethbridge
  * @author Dr Robert Lagani&egrave;
  * @author Fran&ccedil;ois B&eacute;langer
- * @version July 2000
  */
 public class ChatClient extends AbstractClient
 {
@@ -57,6 +58,8 @@ public class ChatClient extends AbstractClient
   public void handleMessageFromServer(Object msg) 
   {
     clientUI.display(msg.toString());
+    
+    
   }
 
   /**
