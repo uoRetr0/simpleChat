@@ -2,13 +2,11 @@
 // "Object Oriented Software Engineering" and is issued under the open-source
 // license found at www.lloseng.com 
 
-package edu.seg2105.client.backend;
 
 import ocsf.client.*;
 
 import java.io.*;
 
-import edu.seg2105.client.common.*;
 
 /**
  * This class overrides some of the methods defined in the abstract
