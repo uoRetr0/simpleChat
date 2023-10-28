@@ -25,6 +25,8 @@ public class EchoServer extends AbstractServer
    * The default port to listen on.
    */
   final public static int DEFAULT_PORT = 5555;
+
+  ChatIF serverUI;
   
   //Constructors ****************************************************
   
@@ -33,9 +35,10 @@ public class EchoServer extends AbstractServer
    *
    * @param port The port number to connect on.
    */
-  public EchoServer(int port) 
+  public EchoServer(int port, ChatIF serverUI) 
   {
     super(port);
+    this.serverUI = serverUI;
   }
 
   
@@ -60,7 +63,8 @@ public class EchoServer extends AbstractServer
       //handleCommand(message);
     }
     else{
-      //sendToAllClients(message);
+      serverUI.display(message);
+      sendToAllClients(message);
     }
   }
     
@@ -97,39 +101,6 @@ public class EchoServer extends AbstractServer
   
   //Class methods ***************************************************
   
-  /**
-   * This method is responsible for the creation of 
-   * the server instance (there is no UI in this phase).
-   *
-   * @param args[0] The port number to listen on.  Defaults to 5555 
-   *          if no argument is entered.
-   */
-  public static void main(String[] args) 
-  {
-    int port = 0;
-    ServerConsole chat= new ServerConsole(port);
-
-    try
-    {
-      port = Integer.parseInt(args[0]);
-    }
-    catch(Throwable t)
-    {
-      port = DEFAULT_PORT; //Set port to 5555
-    }
-	
-    EchoServer sv = new EchoServer(port);
-    
-    try 
-    {
-      sv.listen(); //Start listening for connections
-      chat.accept();
-    } 
-    catch (Exception ex) 
-    {
-      System.out.println("ERROR - Could not listen for clients!");
-    }
-  }
 
 }
 //End of EchoServer class

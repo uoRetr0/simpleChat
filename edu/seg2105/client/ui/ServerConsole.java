@@ -14,9 +14,14 @@ public class ServerConsole implements ChatIF{
 
     public ServerConsole(int port) 
     {
-        server = new EchoServer(port);
-      
-      // Create scanner object to read from console
+      server = new EchoServer(port, this);
+    	try {
+			  server.listen();
+      } catch (IOException e) {
+			// TODO Auto-generated catch block
+		
+		  }
+
       fromConsole = new Scanner(System.in); 
     }
     
@@ -41,6 +46,31 @@ public class ServerConsole implements ChatIF{
     {
       System.out.println
         ("Unexpected error while reading from console!");
+    }
+  }
+
+  public static void main(String[] args) 
+  {
+
+    int port = DEFAULT_PORT;
+    ServerConsole chat= new ServerConsole(port);
+
+    try
+    {
+      port = Integer.parseInt(args[0]);
+    }
+    catch(Throwable t)
+    {
+      port = DEFAULT_PORT; //Set port to 5555
+    }
+
+    try 
+    {
+      chat.accept();
+    } 
+    catch (Exception ex) 
+    {
+      System.out.println("ERROR - Could not listen for clients!");
     }
   }
 }

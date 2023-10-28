@@ -1,0 +1,9 @@
+{
+    "java.project.sourcePaths": [
+        "edu\\seg2105\\client\\backend",
+        "edu\\seg2105\\client\\common",
+        "edu\\seg2105\\client\\ui",
+        "edu\\seg2105\\edu\\server\\backend",
+        "OCSF\\src"
+    ]
+}
