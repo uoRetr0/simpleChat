@@ -110,6 +110,11 @@ public class EchoServer extends AbstractServer
     try 
     {
       sv.listen(); //Start listening for connections
+
+      ServerConsole test = new ServerConsole("localhost", port);
+      test.main(args);
+    
+    
     } 
     catch (Exception ex) 
     {
