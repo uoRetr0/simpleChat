@@ -60,7 +60,7 @@ public class EchoServer extends AbstractServer
       //handleCommand(message);
     }
     else{
-      sendToAllClients(message);
+      //sendToAllClients(message);
     }
   }
     

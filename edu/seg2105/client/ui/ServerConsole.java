@@ -14,7 +14,6 @@ public class ServerConsole implements ChatIF{
 
     public ServerConsole(int port) 
     {
- 
         server = new EchoServer(port);
       
       // Create scanner object to read from console
@@ -25,7 +24,6 @@ public class ServerConsole implements ChatIF{
   {
     System.out.println("SERVER MSG> " + message);
   }
-
 
   public void accept() 
   {
@@ -45,28 +43,4 @@ public class ServerConsole implements ChatIF{
         ("Unexpected error while reading from console!");
     }
   }
-
-  public static void main(String[] args) 
-  {
-    String host = "";
-    int port = 0;
-
-    try
-    {
-      host = args[0];
-      port = Integer.parseInt(args[1]);
-    }
-    catch(ArrayIndexOutOfBoundsException e)
-    {
-      host = "localhost";
-      port = DEFAULT_PORT;
-    }
-    catch(NumberFormatException e){
-      port = DEFAULT_PORT;
-    }
-
-    ServerConsole chat= new ServerConsole(port);
-    chat.accept();  //Wait for console data
-  }
-
 }
