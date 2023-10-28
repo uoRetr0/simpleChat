@@ -8,24 +8,14 @@ import ocsf.client.*;
 public class ServerConsole implements ChatIF{
     final public static int DEFAULT_PORT = 5555;
 
-    ChatClient server;
+    EchoServer server;
 
     Scanner fromConsole; 
 
-    public ServerConsole(String host, int port) 
+    public ServerConsole(int port) 
     {
-      try 
-      {
-        server = new ChatClient(host, port, this);
-        
-        
-      } 
-      catch(IOException exception) 
-      {
-        System.out.println("Error: Can't setup connection!"
-                  + " Terminating client.");
-        System.exit(1);
-      }
+ 
+        server = new EchoServer(port);
       
       // Create scanner object to read from console
       fromConsole = new Scanner(System.in); 
@@ -46,7 +36,7 @@ public class ServerConsole implements ChatIF{
       while (true) 
       {
         message = fromConsole.nextLine();
-        server.handleMessageFromServer(message);
+        server.handleMessageFromServerUI(message);
       }
     } 
     catch (Exception ex) 
@@ -75,7 +65,7 @@ public class ServerConsole implements ChatIF{
       port = DEFAULT_PORT;
     }
 
-    ServerConsole chat= new ServerConsole(host, port);
+    ServerConsole chat= new ServerConsole(port);
     chat.accept();  //Wait for console data
   }
 

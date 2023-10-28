@@ -4,6 +4,8 @@
 // license found at www.lloseng.com 
 
 
+import java.io.IOException;
+
 import ocsf.server.*;
 
 /**
@@ -51,6 +53,16 @@ public class EchoServer extends AbstractServer
     System.out.println("Message received: " + msg + " from " + client);
     this.sendToAllClients(msg);
   }
+
+   public void handleMessageFromServerUI(String message)
+  {
+    if (message.startsWith("#")){
+      //handleCommand(message);
+    }
+    else{
+      sendToAllClients(message);
+    }
+  }
     
   /**
    * This method overrides the one in the superclass.  Called
@@ -94,17 +106,15 @@ public class EchoServer extends AbstractServer
    */
   public static void main(String[] args) 
   {
-    String host = "";
     int port = 0;
+    ServerConsole chat= new ServerConsole(port);
 
     try
     {
-      host = args[0];
-      port = Integer.parseInt(args[1]);
+      port = Integer.parseInt(args[0]);
     }
     catch(Throwable t)
     {
-      host = "localhost";
       port = DEFAULT_PORT; //Set port to 5555
     }
 	
@@ -113,7 +123,6 @@ public class EchoServer extends AbstractServer
     try 
     {
       sv.listen(); //Start listening for connections
-      ServerConsole chat= new ServerConsole(host, port);
       chat.accept();
     } 
     catch (Exception ex) 
