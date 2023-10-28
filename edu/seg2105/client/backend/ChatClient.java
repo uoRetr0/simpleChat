@@ -69,13 +69,73 @@ public class ChatClient extends AbstractClient
   {
     try
     {
-      sendToServer(message);
+      if (message.startsWith("#")){
+        handleCommand(message);
+      }
+      else{
+        sendToServer(message);
+      }
     }
     catch(IOException e)
     {
       clientUI.display
         ("Could not send message to server.  Terminating client.");
       quit();
+    }
+  }
+
+  private void handleCommand(String command){
+    String[] commandParts = command.split(" ");
+
+    if (command.equals("#quit")){
+      quit();
+    }
+    else if (command.equals("#logoff")){
+      try {
+        closeConnection();
+      } catch (IOException e) {
+        quit();
+      }
+    }
+    else if (command.equals("#sethost")){
+      if (isConnected()){
+        System.out.println("Error: cannot set host while already connected to server");
+      }
+      try {
+        setHost(commandParts[1]);
+        System.out.println("Host set to: " + commandParts[1]);
+
+      } catch (Exception e) {
+        System.out.println("Error occurred while trying to set Host");
+      }
+    }
+    else if (commandParts[0].equals("#setport")){
+      if (isConnected()){
+        System.out.println("Error: cannot set port while already connected to server");
+      }
+      try {
+        setPort(Integer.parseInt(commandParts[1]));
+        System.out.println("Port set to: " + commandParts[1]);
+
+      } catch (Exception e) {
+        System.out.println("Error occurred while trying to set port");
+      }
+    }
+    else if (command.equals("#login")){
+      if (isConnected()){
+        System.out.println("Error: cannot login while already connect to server");
+      }
+      try {
+        openConnection();
+      } catch (IOException e) {
+        System.out.println("Error occured while trying to connect to server");
+      }
+    }
+    else if (command.equals("#gethost")){
+      System.out.println("Current host is: " + getHost());
+    }
+    else if (command.equals("#getport")){
+      System.out.println("Current port is: " + getPort());
     }
   }
   
@@ -91,5 +151,18 @@ public class ChatClient extends AbstractClient
     catch(IOException e) {}
     System.exit(0);
   }
+
+  @Override
+  protected void connectionException(Exception exception){
+    clientUI.display("The server is shut down");
+    quit();
+  }
+
+  @Override
+  protected void connectionClosed(){
+    clientUI.display("Connection closed");
+  }
+
+
 }
 //End of ChatClient class
