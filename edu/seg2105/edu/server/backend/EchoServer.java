@@ -94,14 +94,17 @@ public class EchoServer extends AbstractServer
    */
   public static void main(String[] args) 
   {
-    int port = 0; //Port to listen on
+    String host = "";
+    int port = 0;
 
     try
     {
-      port = Integer.parseInt(args[0]); //Get port from command line
+      host = args[0];
+      port = Integer.parseInt(args[1]);
     }
     catch(Throwable t)
     {
+      host = "localhost";
       port = DEFAULT_PORT; //Set port to 5555
     }
 	
@@ -110,11 +113,8 @@ public class EchoServer extends AbstractServer
     try 
     {
       sv.listen(); //Start listening for connections
-
-      ServerConsole test = new ServerConsole("localhost", port);
-      test.main(args);
-    
-    
+      ServerConsole chat= new ServerConsole(host, port);
+      chat.accept();
     } 
     catch (Exception ex) 
     {

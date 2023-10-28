@@ -46,7 +46,7 @@ public class ServerConsole implements ChatIF{
       while (true) 
       {
         message = fromConsole.nextLine();
-        server.handleMessageFromClientUI(message);
+        server.handleMessageFromServer(message);
       }
     } 
     catch (Exception ex) 
