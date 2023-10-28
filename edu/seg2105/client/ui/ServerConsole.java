@@ -8,7 +8,7 @@ import ocsf.client.*;
 public class ServerConsole implements ChatIF{
     final public static int DEFAULT_PORT = 5555;
 
-    ServerClient server;
+    ChatClient server;
 
     Scanner fromConsole; 
 
@@ -16,7 +16,7 @@ public class ServerConsole implements ChatIF{
     {
       try 
       {
-        server = new ServerClient(host, port, this);
+        server = new ChatClient(host, port, this);
         
         
       } 
@@ -46,7 +46,7 @@ public class ServerConsole implements ChatIF{
       while (true) 
       {
         message = fromConsole.nextLine();
-        server.handleMessageFromServerUI(message);
+        server.handleMessageFromClientUI(message);
       }
     } 
     catch (Exception ex) 
