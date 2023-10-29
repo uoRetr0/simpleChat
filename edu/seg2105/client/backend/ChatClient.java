@@ -26,6 +26,8 @@ public class ChatClient extends AbstractClient
    */
   ChatIF clientUI; 
 
+  String loginID;
+
   
   //Constructors ****************************************************
   
@@ -37,11 +39,12 @@ public class ChatClient extends AbstractClient
    * @param clientUI The interface type variable.
    */
   
-  public ChatClient(String host, int port, ChatIF clientUI) 
+  public ChatClient(String loginID, String host, int port, ChatIF clientUI) 
     throws IOException 
   {
     super(host, port); //Call the superclass constructor
     this.clientUI = clientUI;
+    this.loginID = loginID;
     openConnection();
   }
 
@@ -56,7 +59,6 @@ public class ChatClient extends AbstractClient
   public void handleMessageFromServer(Object msg) 
   {
     clientUI.display(msg.toString());
-    //sendToAllClients(msg.toString());
     
     
   }
@@ -101,6 +103,7 @@ public class ChatClient extends AbstractClient
     else if (command.equals("#sethost")){
       if (isConnected()){
         System.out.println("Error: cannot set host while already connected to server");
+        return;
       }
       try {
         setHost(commandParts[1]);
@@ -113,6 +116,7 @@ public class ChatClient extends AbstractClient
     else if (commandParts[0].equals("#setport")){
       if (isConnected()){
         System.out.println("Error: cannot set port while already connected to server");
+        return;
       }
       try {
         setPort(Integer.parseInt(commandParts[1]));
@@ -125,6 +129,7 @@ public class ChatClient extends AbstractClient
     else if (command.equals("#login")){
       if (isConnected()){
         System.out.println("Error: cannot login while already connect to server");
+        return;
       }
       try {
         openConnection();
@@ -137,6 +142,9 @@ public class ChatClient extends AbstractClient
     }
     else if (command.equals("#getport")){
       System.out.println("Current port is: " + getPort());
+    }
+    else{
+      System.out.println("Command unknown");
     }
   }
   

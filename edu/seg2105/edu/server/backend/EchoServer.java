@@ -53,18 +53,66 @@ public class EchoServer extends AbstractServer
   public void handleMessageFromClient
     (Object msg, ConnectionToClient client)
   {
-    System.out.println("Message received: " + msg + " from " + client);
+    serverUI.display("Message received: " + msg + " from " + client);
     this.sendToAllClients(msg);
   }
 
    public void handleMessageFromServerUI(String message)
   {
     if (message.startsWith("#")){
-      //handleCommand(message);
+      handleCommand(message);
     }
     else{
       serverUI.display(message);
-      sendToAllClients(message);
+      sendToAllClients("SERVER MSG> " + message);
+    }
+  }
+
+  private void handleCommand(String command){
+    String[] commandParts = command.split(" ");
+
+    if (command.equals("#quit")){
+      System.exit(0);
+    }
+    else if (command.equals("#stop")){
+      stopListening();
+    }
+    else if (command.equals("#close")){
+      try {
+        close();
+      } catch (IOException e) {
+        serverUI.display("Error occured while trying to close server");
+      }
+    }
+    else if (commandParts[0].equals("#setport")){
+      if (isListening()){
+        serverUI.display("Cannot set port while server is open");
+        return;
+      }
+      try {
+        setPort(Integer.parseInt(commandParts[1]));
+        serverUI.display("Port set to: " + commandParts[1]);
+
+      } catch (Exception e) {
+        serverUI.display("Error occurred while trying to set port");
+      }
+    }
+    else if (command.equals("#start")){
+      if (isListening()){
+        serverUI.display("Cannot start server if its already running");
+        return;
+      }
+      try {
+        listen();
+      } catch (IOException e) {
+        serverUI.display("Error occured while trying to start server");
+      }
+    }
+    else if (command.equals("#getport")){
+      serverUI.display("Current port is: " + getPort());
+    }
+    else{
+      serverUI.display("Command unknown");
     }
   }
     
@@ -74,7 +122,7 @@ public class EchoServer extends AbstractServer
    */
   protected void serverStarted()
   {
-    System.out.println
+    serverUI.display
       ("Server listening for connections on port " + getPort());
   }
   
@@ -84,18 +132,18 @@ public class EchoServer extends AbstractServer
    */
   protected void serverStopped()
   {
-    System.out.println
+    serverUI.display
       ("Server has stopped listening for connections.");
   }
 
   @Override
   protected void clientConnected(ConnectionToClient client){
-    System.out.println("Client connected to the server");
+    serverUI.display("Client connected to the server");
   }
 
   @Override
   synchronized protected void clientDisconnected(ConnectionToClient client){
-    System.out.println("Client disconnected from the server");//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    serverUI.display("Client disconnected from the server");//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   }
   
   
