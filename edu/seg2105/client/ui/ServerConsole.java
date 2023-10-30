@@ -52,8 +52,7 @@ public class ServerConsole implements ChatIF{
   public static void main(String[] args) 
   {
 
-    int port = DEFAULT_PORT;
-    ServerConsole chat= new ServerConsole(port);
+    int port = 0;
 
     try
     {
@@ -66,6 +65,7 @@ public class ServerConsole implements ChatIF{
 
     try 
     {
+      ServerConsole chat= new ServerConsole(port);
       chat.accept();
     } 
     catch (Exception ex) 

@@ -53,11 +53,10 @@ public class EchoServer extends AbstractServer
   public void handleMessageFromClient
     (Object msg, ConnectionToClient client)
   {
-    serverUI.display("Message received: " + msg + " from " + client);
+    System.out.println("Message received: " + msg + " from " + client.getInfo("id"));
 
     if (msg.toString().startsWith("#login")){
       String[] tmp = msg.toString().split(" ");
-      System.out.println(tmp[0] + " " + tmp[1]);
       client.setInfo("id", tmp[1]);
       System.out.println(tmp[1] + " has logged on");
       this.sendToAllClients(tmp[1] + " has logged on");
@@ -93,38 +92,38 @@ public class EchoServer extends AbstractServer
       try {
         close();
       } catch (IOException e) {
-        serverUI.display("Error occured while trying to close server");
+        System.out.println("Error occured while trying to close server");
       }
     }
     else if (commandParts[0].equals("#setport")){
       if (isListening()){
-        serverUI.display("Cannot set port while server is open");
+        System.out.println("Cannot set port while server is open");
         return;
       }
       try {
         setPort(Integer.parseInt(commandParts[1]));
-        serverUI.display("Port set to: " + commandParts[1]);
+        System.out.println("Port set to: " + commandParts[1]);
 
       } catch (Exception e) {
-        serverUI.display("Error occurred while trying to set port");
+        System.out.println("Error occurred while trying to set port");
       }
     }
     else if (command.equals("#start")){
       if (isListening()){
-        serverUI.display("Cannot start server if its already running");
+        System.out.println("Cannot start server if its already running");
         return;
       }
       try {
         listen();
       } catch (IOException e) {
-        serverUI.display("Error occured while trying to start server");
+        System.out.println("Error occured while trying to start server");
       }
     }
     else if (command.equals("#getport")){
-      serverUI.display("Current port is: " + getPort());
+      System.out.println("Current port is: " + getPort());
     }
     else{
-      serverUI.display("Command unknown");
+      System.out.println("Command unknown");
     }
   }
     
@@ -134,7 +133,7 @@ public class EchoServer extends AbstractServer
    */
   protected void serverStarted()
   {
-    serverUI.display
+    System.out.println
       ("Server listening for connections on port " + getPort());
   }
   
@@ -144,18 +143,18 @@ public class EchoServer extends AbstractServer
    */
   protected void serverStopped()
   {
-    serverUI.display
+    System.out.println
       ("Server has stopped listening for connections.");
   }
 
   @Override
   protected void clientConnected(ConnectionToClient client){
-    serverUI.display(client.getInfo("id") + " has connected");
+    System.out.println("A new client has connected to the server");
   }
 
   @Override
   synchronized protected void clientDisconnected(ConnectionToClient client){
-    serverUI.display(client.getInfo("id") + " has disconnected");//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    System.out.println(client.getInfo("id") + " has disconnected");
   }
   
   

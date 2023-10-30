@@ -53,8 +53,8 @@ public class ClientConsole implements ChatIF
     try 
     {
       if (loginID.length() < 1){
-        System.out.println("Login ID is required");
-        return;
+        System.out.println("Error: No login ID specified.  Connection aborted.");
+        System.exit(0);
       }
 
       client= new ChatClient(loginID, host, port, this);
