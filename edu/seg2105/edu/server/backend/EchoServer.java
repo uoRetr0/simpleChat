@@ -54,10 +54,20 @@ public class EchoServer extends AbstractServer
     (Object msg, ConnectionToClient client)
   {
     serverUI.display("Message received: " + msg + " from " + client);
-    this.sendToAllClients(msg);
+
+    if (msg.toString().startsWith("#login")){
+      String[] tmp = msg.toString().split(" ");
+      System.out.println(tmp[0] + " " + tmp[1]);
+      client.setInfo("id", tmp[1]);
+    }
+    else {
+      String message = (String)client.getInfo("id") + ": " + msg;
+      this.sendToAllClients(message);
+    }
+    
   }
 
-   public void handleMessageFromServerUI(String message)
+  public void handleMessageFromServerUI(String message)
   {
     if (message.startsWith("#")){
       handleCommand(message);
