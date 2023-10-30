@@ -59,9 +59,11 @@ public class EchoServer extends AbstractServer
       String[] tmp = msg.toString().split(" ");
       System.out.println(tmp[0] + " " + tmp[1]);
       client.setInfo("id", tmp[1]);
+      System.out.println(tmp[1] + " has logged on");
+      this.sendToAllClients(tmp[1] + " has logged on");
     }
     else {
-      String message = (String)client.getInfo("id") + ": " + msg;
+      String message = (String)client.getInfo("id") + "> " + msg;
       this.sendToAllClients(message);
     }
     
@@ -148,12 +150,12 @@ public class EchoServer extends AbstractServer
 
   @Override
   protected void clientConnected(ConnectionToClient client){
-    serverUI.display("Client connected to the server");
+    serverUI.display(client.getInfo("id") + " has connected");
   }
 
   @Override
   synchronized protected void clientDisconnected(ConnectionToClient client){
-    serverUI.display("Client disconnected from the server");//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    serverUI.display(client.getInfo("id") + " has disconnected");//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   }
   
   
