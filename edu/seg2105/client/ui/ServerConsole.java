@@ -1,9 +1,5 @@
-import ocsf.server.*;
-
 import java.io.IOException;
 import java.util.Scanner;
-
-import ocsf.client.*;
 
 public class ServerConsole implements ChatIF{
     final public static int DEFAULT_PORT = 5555;
